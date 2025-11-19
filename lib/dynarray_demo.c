@@ -1,122 +1,41 @@
-#include <stdio.h>
+/*
+ * dynarray_demo.c — demo using updated dynarray.h
+ *
+ * Compile:
+ *   gcc -std=c11 dynarray_demo.c -O2 -o dynarray_demo
+ *
+ * The updated da_foreach_ptr declares the pointer variable internally,
+ * so you do NOT need to declare `pptr` before using the macro.
+ */
+
 #include "dynarray.h"
+#include <stdio.h>
 
-// Example with integers
-void int_example() {
-    printf("=== Integer Array Example ===\n");
-    
-    dynarray(int) numbers = {0};
-    
-    // Append some numbers
-    for (int i = 0; i < 10; i++) {
-        dynarray_append(&numbers, i * i);
-    }
-    
-    // Print all elements
-    printf("Numbers: ");
-    dynarray_foreach(&numbers, ptr) {
-        printf("%d ", *ptr);
-    }
-    printf("\n");
-    
-    // Access elements
-    printf("First: %d, Last: %d, Length: %zu\n", 
-           dynarray_first(&numbers), 
-           dynarray_last(&numbers), 
-           dynarray_len(&numbers));
-    
-    // Insert and remove
-    dynarray_insert(&numbers, 3, 999);
-    dynarray_remove(&numbers, 5);
-    
-    printf("After insert/remove: ");
-    for (size_t i = 0; i < dynarray_len(&numbers); i++) {
-        printf("%d ", dynarray_get(&numbers, i));
-    }
-    printf("\n");
-    
-    dynarray_free(&numbers);
-}
+typedef struct {
+  int x, y;
+} point;
 
-// Example with strings
-void string_example() {
-    printf("\n=== String Array Example ===\n");
-    
-    dynarray(const char*) words = {0};
-    
-    dynarray_append(&words, "hello");
-    dynarray_append(&words, "world");
-    dynarray_append(&words, "dynamic");
-    dynarray_append(&words, "arrays");
-    
-    printf("Words: ");
-    dynarray_foreach(&words, ptr) {
-        printf("%s ", *ptr);
-    }
-    printf("\n");
-    
-    // Pop last element
-    const char *last = dynarray_pop(&words);
-    printf("Popped: %s\n", last);
-    printf("Remaining length: %zu\n", dynarray_len(&words));
-    
-    dynarray_free(&words);
-}
+int main(void) {
+  da_t(int) nums = NULL;
+  da_push(nums, 1);
+  da_push(nums, 2);
+  da_push(nums, 3);
 
-// Example with custom struct
-void struct_example() {
-    printf("\n=== Struct Array Example ===\n");
-    
-    typedef struct {
-        int x, y;
-        char name[16];
-    } Point;
-    
-    dynarray(Point) points = {0};
-    
-    Point p1 = {10, 20, "origin"};
-    Point p2 = {30, 40, "target"};
-    
-    dynarray_append(&points, p1);
-    dynarray_append(&points, p2);
-    
-    printf("Points:\n");
-    dynarray_foreach(&points, ptr) {
-        printf("  %s: (%d, %d)\n", ptr->name, ptr->x, ptr->y);
-    }
-    
-    dynarray_free(&points);
-}
+  da_t(point) pts = NULL;
+  da_push(pts, (point){.x = 10, .y = 20});
+  da_push(pts, (point){.x = 30, .y = 40});
 
-// Bulk operations example
-void bulk_example() {
-    printf("\n=== Bulk Operations Example ===\n");
-    
-    dynarray(int) source = {0};
-    dynarray(int) dest = {0};
-    
-    // Fill source array
-    for (int i = 0; i < 5; i++) {
-        dynarray_append(&source, i + 100);
-    }
-    
-    // Bulk copy from source to dest
-    dynarray_append_array(&dest, source.data, source.len);
-    
-    printf("Destination array: ");
-    dynarray_foreach(&dest, ptr) {
-        printf("%d ", *ptr);
-    }
-    printf("\n");
-    
-    dynarray_free(&source);
-    dynarray_free(&dest);
-}
+  /* pointer iteration — `pptr` is declared by the macro */
+  da_foreach_ptr(point, pptr, pts) {
+    pptr->x += 1;
+    pptr->y += 1;
+  }
 
-int main() {
-    int_example();
-    string_example();
-    struct_example();
-    bulk_example();
-    return 0;
+  for (size_t i = 0; i < da_count(pts); ++i) {
+    printf("pt[%zu] = (%d,%d)\n", i, pts[i].x, pts[i].y);
+  }
+
+  da_free(nums);
+  da_free(pts);
+  return 0;
 }
