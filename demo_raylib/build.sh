@@ -19,3 +19,9 @@ clang -o breakout breakout.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o random_math random_math.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o random_vec2 random_vec2.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o random_vec3 random_vec3.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o simple_physics simple_physics.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o physics_3d physics_3d.c -lraylib -lm -lpthread -ldl -lrt -lGL
+
+
+
+
