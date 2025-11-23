@@ -14,13 +14,17 @@
 
 
 # updated reactivity
-clang snake.c -o snake -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o snake snake.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o breakout breakout.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o random_math random_math.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o random_vec2 random_vec2.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o random_vec3 random_vec3.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o simple_physics simple_physics.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o physics_3d physics_3d.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o animation_demo animation_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o shooting_stars shooting_stars.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o cmatrix_remake cmatrix_remake.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o easing_demo easing_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
 
 
 
