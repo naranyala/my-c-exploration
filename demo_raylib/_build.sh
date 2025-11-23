@@ -25,7 +25,10 @@ clang -o animation_demo animation_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o shooting_stars shooting_stars.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o cmatrix_remake cmatrix_remake.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o easing_demo easing_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o linear_algebra_demo linear_algebra_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
 
-
+clang -o simple_2d_shooter simple_2d_shooter.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o event_driven_keyboard event_driven_keyboard.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o system_bus_demo system_bus_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
 
 
