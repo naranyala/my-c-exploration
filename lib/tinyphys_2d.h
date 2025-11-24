@@ -1,5 +1,5 @@
 
-// tinyphys.h
+// tinyphys_2d.h
 // Minimal single-header 2D physics for C.
 // - Semi-implicit Euler integration
 // - Gravity, damping
