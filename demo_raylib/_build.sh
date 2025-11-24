@@ -30,5 +30,8 @@ clang -o linear_algebra_demo linear_algebra_demo.c -lraylib -lm -lpthread -ldl -
 clang -o simple_2d_shooter simple_2d_shooter.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o event_driven_keyboard event_driven_keyboard.c -lraylib -lm -lpthread -ldl -lrt -lGL
 clang -o system_bus_demo system_bus_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o mindmap_demo mindmap_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o particle_demo particle_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+clang -o tesseract_demo tesseract_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
 
 
