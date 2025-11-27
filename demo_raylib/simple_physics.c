@@ -1,6 +1,6 @@
 // demo.c
 #define TINY_PHYS_IMPLEMENTATION
-#include "../lib/tinyphys.h"
+#include "../lib/tinyphys_2d.h"
 #include "raylib.h"
 
 int main(void) {
