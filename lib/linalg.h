@@ -47,6 +47,19 @@ static inline Vec3 vec3_neg(Vec3 a) {
     return (Vec3){-a.x, -a.y, -a.z};
 }
 
+// More vector operations
+static inline Vec3 vec3_abs(Vec3 a) {
+    return (Vec3){fabsf(a.x), fabsf(a.y), fabsf(a.z)};
+}
+
+static inline Vec3 vec3_floor(Vec3 a) {
+    return (Vec3){floorf(a.x), floorf(a.y), floorf(a.z)};
+}
+
+static inline Vec3 vec3_frac(Vec3 a) {
+    return vec3_sub(a, vec3_floor(a));
+}
+
 // Component-wise operations
 static inline Vec3 vec3_mul_vec(Vec3 a, Vec3 b) {
     return (Vec3){a.x * b.x, a.y * b.y, a.z * b.z};
@@ -269,6 +282,53 @@ static inline Mat4 mat4_look_at(Vec3 eye, Vec3 center, Vec3 up) {
     m.m[14] = vec3_dot(f, eye);
     
     return m;
+}
+
+// static inline Mat4 mat4_inverse(Mat4 m) {
+//     // TODO
+// }
+//
+// static inline Mat4 mat4_transpose(Mat4 m) {
+//     // TODO
+// }
+
+// ============================================================================
+// Quaternion
+// ============================================================================
+
+typedef struct { float x, y, z, w; } Quat;
+
+static inline Quat quat_identity(void) {
+    return (Quat){0, 0, 0, 1};
+}
+
+static inline Quat quat_angle_axis(float angle, Vec3 axis) {
+    float half_angle = angle * 0.5f;
+    float s = sinf(half_angle);
+    Vec3 norm_axis = vec3_normalize(axis);
+    return (Quat){norm_axis.x * s, norm_axis.y * s, norm_axis.z * s, cosf(half_angle)};
+}
+
+static inline Quat quat_mul(Quat a, Quat b) {
+    return (Quat){
+        a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
+        a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
+        a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w,
+        a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z
+    };
+}
+
+static inline Mat4 quat_to_mat4(Quat q) {
+    float xx = q.x * q.x, yy = q.y * q.y, zz = q.z * q.z;
+    float xy = q.x * q.y, xz = q.x * q.z, yz = q.y * q.z;
+    float wx = q.w * q.x, wy = q.w * q.y, wz = q.w * q.z;
+    
+    return (Mat4){{
+        1 - 2 * (yy + zz), 2 * (xy + wz),     2 * (xz - wy),     0,
+        2 * (xy - wz),     1 - 2 * (xx + zz), 2 * (yz + wx),     0,
+        2 * (xz + wy),     2 * (yz - wx),     1 - 2 * (xx + yy), 0,
+        0,                 0,                 0,                 1
+    }};
 }
 
 #endif // LINALG_H
