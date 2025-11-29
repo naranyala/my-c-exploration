@@ -1,22 +1,4 @@
-/*
-analog_clock_raylib.c — Raylib analog clock using the original reactive.h
-
-This adapts the ASCII demo to a graphical window using raylib. It uses the
-original reactive.h header (unsafe factory functions in that header are NOT
-used — we construct static Signal objects and register them with
-register_signal(&s) to avoid dangling-pointer issues).
-
-Build (Linux example):
-    gcc -std=c11 analog_clock_raylib.c -o analog_clock -lraylib -lm -lpthread
--ldl -lrt -lX11
-
-On macOS or other platforms, link flags for raylib differ.
-
-Run:
-    ./analog_clock
-
-Press ESC or close the window to quit.
-*/
+// analog_clock_raylib.c — Raylib analog clock using the original reactive.h
 
 #include "../lib/reactive.h"
 #include <math.h>

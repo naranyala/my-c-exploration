@@ -23,4 +23,5 @@ zig cc -o smart_rand_demo smart_rand_demo.c
 
 zig cc -o gp2d_math_demo gp2d_math_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
 zig cc -o gp2d_collision_demo gp2d_collision_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
-
+zig cc -o gp3d_math_demo gp3d_math_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+zig cc -o gp3d_collision_demo gp3d_collision_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
