@@ -1,4 +1,4 @@
-#!/usr/bin/bash 
+#!/usr/bin/bash
 
 
 # the source need to be updated based on new reactivity
@@ -14,6 +14,7 @@
 # zig cc -o simple_physics simple_physics.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 
 # updated reactivity
+zig cc -o game_sudoku game_sudoku.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 zig cc -o snake snake.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 zig cc -o breakout breakout.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 zig cc -o random_math random_math.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
@@ -30,7 +31,7 @@ zig cc -o simple_2d_shooter simple_2d_shooter.c -lraylib -lGL -lm -lpthread -ldl
 zig cc -o event_driven_keyboard event_driven_keyboard.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 zig cc -o system_bus_demo system_bus_demo.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 zig cc -o mindmap_demo mindmap_demo.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
-zig cc -o particle_demo particle_demo.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
+# zig cc -o particle_demo particle_demo.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 zig cc -o tesseract_demo tesseract_demo.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 
 # zig cc -o space_invader space_invader.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL

@@ -1,8 +1,8 @@
-#!/usr/bin/bash 
+#!/usr/bin/bash
 
-zig cc -o tui_demo tui_demo.c $(pkg-config --cflags --libs ncurses)
-zig cc -o tui_snake tui_snake.c $(pkg-config --cflags --libs ncurses)
-zig cc -o tui_sysmonitor tui_sysmonitor.c $(pkg-config --cflags --libs ncurses)
+# zig cc -o tui_demo tui_demo.c $(pkg-config --cflags --libs ncurses)
+# zig cc -o tui_snake tui_snake.c $(pkg-config --cflags --libs ncurses)
+# zig cc -o tui_sysmonitor tui_sysmonitor.c $(pkg-config --cflags --libs ncurses)
 
 # zig cc -o state_machine_demo state_machine_demo.c $(pkg-config --cflags --libs raylib)
 zig cc -o state_machine_demo state_machine_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
@@ -25,3 +25,11 @@ zig cc -o gp2d_math_demo gp2d_math_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
 zig cc -o gp2d_collision_demo gp2d_collision_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
 zig cc -o gp3d_math_demo gp3d_math_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
 zig cc -o gp3d_collision_demo gp3d_collision_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+
+zig cc -o rxjs_inspired_demo rxjs_inspired_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+zig cc -o gp2d_particles_demo gp2d_particles_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+zig cc -o particle_made_sphere particle_made_sphere.c -lraylib -lm -lpthread -ldl -lrt -lGL
+
+zig cc -o ano_reactivity_demo ano_reactivity_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+zig cc -o ano_calculator ano_calculator.c -lraylib -lm -lpthread -ldl -lrt -lGL
+zig cc -o ano_snake_demo ano_snake_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
