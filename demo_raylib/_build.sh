@@ -15,7 +15,7 @@
 
 # updated reactivity
 zig cc -o game_sudoku game_sudoku.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
-zig cc -o snake snake.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
+zig cc -o snake_reactive snake_reactive.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 zig cc -o breakout breakout.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 zig cc -o random_math random_math.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 zig cc -o random_vec2 random_vec2.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
@@ -37,6 +37,8 @@ zig cc -o tesseract_demo tesseract_demo.c -lraylib -lGL -lm -lpthread -ldl -lrt 
 # zig cc -o space_invader space_invader.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 # zig cc -o space_wormhole space_wormhole.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 zig cc -o earth_wireframe earth_wireframe.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
+
+zig cc -o grid_scene_cube grid_scene_cube.c -lraylib -lGL -lm -lpthread -ldl -lrt -lGL
 
 
 

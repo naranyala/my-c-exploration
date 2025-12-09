@@ -33,3 +33,6 @@ zig cc -o particle_made_sphere particle_made_sphere.c -lraylib -lm -lpthread -ld
 zig cc -o ano_reactivity_demo ano_reactivity_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
 zig cc -o ano_calculator ano_calculator.c -lraylib -lm -lpthread -ldl -lrt -lGL
 zig cc -o ano_snake_demo ano_snake_demo.c -lraylib -lm -lpthread -ldl -lrt -lGL
+
+zig cc -o deventbbus deventbud.c
+zig cc -o dhash dhash.c
