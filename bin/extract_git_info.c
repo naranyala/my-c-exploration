@@ -1,7 +1,69 @@
+#define _POSIX_C_SOURCE 200809L
 #include <dirent.h>
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef _WIN32
+#include <windows.h>
+// Windows doesn't have getline/getdelim natively
+static ssize_t getline(char **lineptr, size_t *n, FILE *stream) {
+  size_t pos = 0;
+  int c;
+  if (lineptr == NULL || n == NULL || stream == NULL) {
+    errno = EINVAL;
+    return -1;
+  }
+  if (*lineptr == NULL) {
+    *n = 128;
+    *lineptr = malloc(*n);
+    if (*lineptr == NULL) return -1;
+  }
+  while ((c = fgetc(stream)) != EOF) {
+    if (pos + 1 >= *n) {
+      size_t new_size = *n * 2;
+      char *new_ptr = realloc(*lineptr, new_size);
+      if (new_ptr == NULL) return -1;
+      *lineptr = new_ptr;
+      *n = new_size;
+    }
+    (*lineptr)[pos++] = c;
+    if (c == '\n') break;
+  }
+  if (pos == 0) return -1;
+  (*lineptr)[pos] = '\0';
+  return pos;
+}
+
+static ssize_t getdelim(char **lineptr, size_t *n, int delim, FILE *stream) {
+  size_t pos = 0;
+  int c;
+  if (lineptr == NULL || n == NULL || stream == NULL) {
+    errno = EINVAL;
+    return -1;
+  }
+  if (*lineptr == NULL) {
+    *n = 128;
+    *lineptr = malloc(*n);
+    if (*lineptr == NULL) return -1;
+  }
+  while ((c = fgetc(stream)) != EOF) {
+    if (pos + 1 >= *n) {
+      size_t new_size = *n * 2;
+      char *new_ptr = realloc(*lineptr, new_size);
+      if (new_ptr == NULL) return -1;
+      *lineptr = new_ptr;
+      *n = new_size;
+    }
+    (*lineptr)[pos++] = c;
+    if (c == delim) break;
+  }
+  if (pos == 0) return -1;
+  (*lineptr)[pos] = '\0';
+  return pos;
+}
+#endif
 
 // Function to check if a directory is a Git repository
 int is_git_repo(const char *dirpath) {

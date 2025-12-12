@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 200809L
 #include <dirent.h>
 #include <errno.h> // Added for better error handling
 #include <getopt.h>
@@ -6,6 +7,16 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
+
+// Windows doesn't have S_ISLNK or st_blocks
+#ifndef S_ISLNK
+#define S_ISLNK(m) 0
+#endif
+
+// Windows doesn't have lstat, use stat instead
+#ifdef _WIN32
+#define lstat stat
+#endif
 
 // --- Configuration Structure ---
 typedef struct {
@@ -113,7 +124,12 @@ void process_path(const char *path, const Config *config, int is_top_level) {
   off_t size = 0;
   if (S_ISREG(sb.st_mode) || S_ISLNK(sb.st_mode)) {
     // For files and symlinks, size is straightforward
+#ifdef _WIN32
+    // Windows doesn't have st_blocks, use st_size for both modes
+    size = sb.st_size;
+#else
     size = (config->apparent_size) ? sb.st_size : sb.st_blocks * 512;
+#endif
   } else if (S_ISDIR(sb.st_mode)) {
     // For directories, we need to recurse
     size = get_dir_size(path, config);
@@ -214,8 +230,13 @@ off_t get_dir_size(const char *path, const Config *config) {
     if (S_ISDIR(entry_sb.st_mode)) {
       total_size += get_dir_size(full_path, config);
     } else {
+#ifdef _WIN32
+      // Windows doesn't have st_blocks, use st_size for both modes
+      total_size += entry_sb.st_size;
+#else
       total_size +=
           (config->apparent_size) ? entry_sb.st_size : entry_sb.st_blocks * 512;
+#endif
     }
 
     free(full_path);

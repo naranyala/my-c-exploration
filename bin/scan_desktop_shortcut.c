@@ -3,10 +3,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 #define MAX_FILES 1000
 #define MAX_PATH 4096
 #define CENTRAL_DIR "/usr/share/applications"
+
+// Fallback for systems without d_type in dirent
+#ifndef DT_DIR
+#define DT_DIR 4
+#endif
+#ifndef DT_REG
+#define DT_REG 8
+#endif
+#ifndef DT_UNKNOWN
+#define DT_UNKNOWN 0
+#endif
 
 char *files[MAX_FILES];
 int file_count = 0;
@@ -30,13 +42,39 @@ void scan(const char *dir) {
 
     snprintf(path, sizeof(path), "%s/%s", dir, ent->d_name);
 
+#ifdef _DIRENT_HAVE_D_TYPE
     if (ent->d_type == DT_DIR) {
       scan(path);
     } else if (ent->d_type == DT_REG && is_desktop(ent->d_name)) {
       files[file_count++] = strdup(path);
       if (file_count >= MAX_FILES)
         break;
+    } else if (ent->d_type == DT_UNKNOWN) {
+      // Fall back to stat if d_type is unknown
+      struct stat st;
+      if (stat(path, &st) == 0) {
+        if (S_ISDIR(st.st_mode)) {
+          scan(path);
+        } else if (S_ISREG(st.st_mode) && is_desktop(ent->d_name)) {
+          files[file_count++] = strdup(path);
+          if (file_count >= MAX_FILES)
+            break;
+        }
+      }
     }
+#else
+    // If d_type is not available, use stat
+    struct stat st;
+    if (stat(path, &st) == 0) {
+      if (S_ISDIR(st.st_mode)) {
+        scan(path);
+      } else if (S_ISREG(st.st_mode) && is_desktop(ent->d_name)) {
+        files[file_count++] = strdup(path);
+        if (file_count >= MAX_FILES)
+          break;
+      }
+    }
+#endif
   }
   closedir(d);
 }

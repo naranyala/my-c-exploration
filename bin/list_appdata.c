@@ -3,9 +3,15 @@
 #include <string.h>
 
 #ifdef _WIN32
-#include <direct.h> // for _getcwd (not used here, but common)
-#include <shlobj.h>
 #include <windows.h>
+#include <shlobj.h>
+#include <direct.h> // for _getcwd (not used here, but common)
+#ifndef CSIDL_APPDATA
+#define CSIDL_APPDATA 0x001a
+#endif
+#ifndef CSIDL_APP_DATA
+#define CSIDL_APP_DATA CSIDL_APPDATA
+#endif
 #define GETCWD _getcwd
 #else
 #include <dirent.h>
